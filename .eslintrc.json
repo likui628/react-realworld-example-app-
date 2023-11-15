@@ -16,7 +16,13 @@
       "react/react-in-jsx-scope": "off",
       "import/prefer-default-export": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "jsx-a11y/alt-text": "off"
+      "jsx-a11y/alt-text": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
