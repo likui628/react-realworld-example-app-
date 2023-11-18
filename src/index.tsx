@@ -1,11 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+import { Settings } from './pages/Settings';
+import { EditArticle } from './pages/EditArticle';
+import { Article } from './pages/Article';
+import { Profile } from './pages/Profile';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/settings',
+    element: <Settings />,
+  },
+  {
+    path: '/editor',
+    element: <EditArticle />,
+  },
+  {
+    path: '/editor/:slug',
+    element: <EditArticle />,
+  },
+  {
+    path: '/profile/@:username',
+    element: <Profile />,
+  },
+  {
+    path: '/profile/@:username/favorites',
+    element: <Profile />,
+  },
+  {
+    path: '/article/:slug',
+    element: <Article />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
