@@ -1,30 +1,31 @@
+import { Link } from 'react-router-dom';
 export function Header() {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
-        <a className="navbar-brand" href="index.html">
+        <Link to={''} className="navbar-brand">
           conduit
-        </a>
+        </Link>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
-            <a className="nav-link active" href="/">
+            <Link to={''} className="nav-link">
               Home
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <Link to={'editor'} className="nav-link">
               <i className="ion-compose"></i>&nbsp;New Post
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <Link to={'settings'} className="nav-link">
               <i className="ion-gear-a"></i>&nbsp;Settings
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <Link to={'register'} className="nav-link">
               Sign up
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
