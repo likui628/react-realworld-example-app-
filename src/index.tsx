@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './state/store';
 
 import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
+import { Auth } from './pages/Auth';
 import { Settings } from './pages/Settings';
 import { EditArticle } from './pages/EditArticle';
 import { Article } from './pages/Article';
@@ -20,11 +19,11 @@ const router = createHashRouter([
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <Auth />,
   },
   {
     path: '/register',
-    element: <Register />,
+    element: <Auth isRegister />,
   },
   {
     path: '/settings',
