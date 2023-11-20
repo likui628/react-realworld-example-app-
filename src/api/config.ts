@@ -7,6 +7,11 @@ interface fetchWrapProps {
   signal?: AbortSignal;
 }
 
+export interface PageQueryParams {
+  limit?: number;
+  offset?: number;
+}
+
 const fetchWrap = async ({ method, url, body, signal }: fetchWrapProps) => {
   const jwtToken = localStorage.getItem('jwtToken');
   const config = {

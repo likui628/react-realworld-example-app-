@@ -1,12 +1,13 @@
-import { GET } from './config';
+import { GET, PageQueryParams } from './config';
 import { generateURLSearchParams } from '../utils';
 import { Article } from '../types/article';
 
-export interface ArticleQueryParams {
+export const ARTICLE_PAGE_LIMIT = 10;
+
+export interface ArticleQueryParams extends PageQueryParams {
   author?: string;
   favorited?: string;
-  limit?: number;
-  offset?: number;
+  tag?: string;
 }
 
 export interface ArticleResponse {
@@ -18,4 +19,10 @@ export const apiArticles = async (
   body: ArticleQueryParams
 ): Promise<ArticleResponse> => {
   return GET(`articles?${generateURLSearchParams(body)}`);
+};
+
+export const apiFeedArticles = async (
+  body: PageQueryParams
+): Promise<ArticleResponse> => {
+  return GET(`articles/feed?${generateURLSearchParams(body)}`);
 };

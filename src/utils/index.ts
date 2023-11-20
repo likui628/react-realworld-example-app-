@@ -1,7 +1,7 @@
 export const generateURLSearchParams = (body: Record<string, any>) => {
   let params = new URLSearchParams();
   Object.entries(body).forEach(([key, val]) => {
-    params.append(key, val);
+    val && params.append(key, val);
   });
   return params.toString();
 };

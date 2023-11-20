@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { apiGetAllTags } from '../api/tags';
 
-export function PopularTags() {
+interface PopularTagsProps {
+  onChange: (tag: string) => void;
+}
+
+export function PopularTags({ onChange }: PopularTagsProps) {
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -22,7 +26,12 @@ export function PopularTags() {
           <div>Loading Tags...</div>
         ) : (
           tags.map(tag => (
-            <a href="/" key={tag} className="tag-pill tag-default">
+            <a
+              href="#"
+              key={tag}
+              className="tag-pill tag-default"
+              onClick={() => onChange(tag)}
+            >
               {tag}
             </a>
           ))
