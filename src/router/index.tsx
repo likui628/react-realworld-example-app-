@@ -1,5 +1,6 @@
 import { createHashRouter } from 'react-router-dom';
 
+import { Layout } from './Layout';
 import { Home } from '../pages/Home';
 import { Auth } from '../pages/Auth';
 import { Settings } from '../pages/Settings';
@@ -11,45 +12,51 @@ import { Feed } from '../pages/Profile/Feed';
 export const router = createHashRouter([
   {
     path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/login',
-    element: <Auth />,
-  },
-  {
-    path: '/register',
-    element: <Auth isRegister />,
-  },
-  {
-    path: '/settings',
-    element: <Settings />,
-  },
-  {
-    path: '/editor',
-    element: <EditArticle />,
-  },
-  {
-    path: '/editor/:slug',
-    element: <EditArticle />,
-  },
-  {
-    path: '/profile',
-    element: <Profile />,
+    element: <Layout />,
     children: [
       {
-        path: ':username',
-        element: <Feed />,
+        path: '/',
+        element: <Home />,
+        index: true,
       },
       {
-        path: ':username/favorites',
-        element: <Feed />,
+        path: '/login',
+        element: <Auth />,
+      },
+      {
+        path: '/register',
+        element: <Auth isRegister />,
+      },
+      {
+        path: '/settings',
+        element: <Settings />,
+      },
+      {
+        path: '/editor',
+        element: <EditArticle />,
+      },
+      {
+        path: '/editor/:slug',
+        element: <EditArticle />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+        children: [
+          {
+            path: ':username',
+            element: <Feed />,
+          },
+          {
+            path: ':username/favorites',
+            element: <Feed />,
+          },
+        ],
+      },
+      {
+        path: '/article/:slug',
+        element: <Article />,
       },
     ],
-  },
-
-  {
-    path: '/article/:slug',
-    element: <Article />,
   },
 ]);
