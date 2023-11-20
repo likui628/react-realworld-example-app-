@@ -23,7 +23,7 @@ export function Header() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={'register'} className="nav-link">
+            <Link to={'/register'} className="nav-link">
               Sign up
             </Link>
           </li>
