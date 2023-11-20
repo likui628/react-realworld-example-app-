@@ -1,27 +1,33 @@
-export function ArticlePreview() {
+import { Article } from '../types/article';
+import { formatTime } from '../utils';
+import { Link } from 'react-router-dom';
+
+interface ArticlePreviewProps {
+  article: Article;
+}
+
+export function ArticlePreview({ article }: ArticlePreviewProps) {
   return (
     <div className="article-preview">
       <div className="article-meta">
-        <a href="profile.html">
-          <img alt="" src="http://i.imgur.com/N4VcUeJ.jpg" />
-        </a>
+        <Link to={`/profile/${article.author.username}`}>
+          <img alt="" src={article.author.image} />
+        </Link>
         <div className="info">
-          <a href="/" className="author">
-            Albert Pai
-          </a>
-          <span className="date">January 20th</span>
+          <Link to={`/profile/${article.author.username}`} className="author">
+            {article.author.username}
+          </Link>
+          <span className="date">{formatTime(article.updatedAt)}</span>
         </div>
         <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart"></i> 32
+          <i className="ion-heart"></i> {article.favoritesCount}
         </button>
       </div>
-      <a href="/" className="preview-link">
-        <h1>
-          The song you won't ever stop singing. No matter how hard you try.
-        </h1>
-        <p>This is the description for the post.</p>
+      <Link to={`/article/${article.slug}`} className="preview-link">
+        <h1>{article.title}</h1>
+        <p>{article.description}</p>
         <span>Read more...</span>
-      </a>
+      </Link>
     </div>
   );
 }

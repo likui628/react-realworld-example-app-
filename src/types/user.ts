@@ -10,3 +10,10 @@ export interface User {
   image: string | undefined;
   token: string;
 }
+
+export interface Profile {
+  bio: string;
+  following: boolean;
+  image: string;
+  username: string;
+}

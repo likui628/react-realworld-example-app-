@@ -5,7 +5,8 @@ import { Auth } from '../pages/Auth';
 import { Settings } from '../pages/Settings';
 import { EditArticle } from '../pages/EditArticle';
 import { Article } from '../pages/Article';
-import { Profile } from '../pages/Profile';
+import { Profile } from '../pages/Profile/Profile';
+import { Feed } from '../pages/Profile/Feed';
 
 export const router = createHashRouter([
   {
@@ -33,13 +34,20 @@ export const router = createHashRouter([
     element: <EditArticle />,
   },
   {
-    path: '/profile/@:username',
+    path: '/profile',
     element: <Profile />,
+    children: [
+      {
+        path: ':username',
+        element: <Feed />,
+      },
+      {
+        path: ':username/favorites',
+        element: <Feed />,
+      },
+    ],
   },
-  {
-    path: '/profile/@:username/favorites',
-    element: <Profile />,
-  },
+
   {
     path: '/article/:slug',
     element: <Article />,
