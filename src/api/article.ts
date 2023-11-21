@@ -1,4 +1,4 @@
-import { GET, PageQueryParams } from './config';
+import { DELETE, GET, PageQueryParams } from './config';
 import { generateURLSearchParams } from '../utils';
 import { Article } from '../types/article';
 
@@ -29,4 +29,8 @@ export const apiFeedArticles = async (
 
 export const apiArticle = async (slug: string): Promise<Article> => {
   return GET(`articles/${slug}`).then(res => res.article);
+};
+
+export const apiDeleteArticle = async (slug: string): Promise<void> => {
+  return DELETE(`articles/${slug}`);
 };
