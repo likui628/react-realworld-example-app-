@@ -1,3 +1,5 @@
+import snarkdown from 'snarkdown';
+
 export const generateURLSearchParams = (body: Record<string, any>) => {
   let params = new URLSearchParams();
   Object.entries(body).forEach(([key, val]) => {
@@ -16,4 +18,8 @@ export const formatTime = (time: string) => {
 
 export const transformNewlines = (text: string) => {
   return text.replaceAll(/(?:\\r\\n|\\r|\\n)/g, '<br />');
+};
+
+export const markdown = (text: string) => {
+  return snarkdown(transformNewlines(text));
 };

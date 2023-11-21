@@ -4,8 +4,8 @@ import { apiArticle } from '../../api/article';
 import { Article as ArticleType } from '../../types/article';
 import { ArticleComments } from './components/ArticleComments';
 import { ArticleBanner } from './components/ArticleBanner';
-import { ArticleActions } from './components/ArticleActions';
-import { transformNewlines } from '../../utils';
+import { markdown } from '../../utils';
+import { ArticleMeta } from './components/ArticleMeta';
 
 export function Article() {
   const { slug } = useParams();
@@ -27,13 +27,15 @@ export function Article() {
               <div
                 className="col-md-12"
                 dangerouslySetInnerHTML={{
-                  __html: transformNewlines(article?.body || ''),
+                  __html: markdown(article.body),
                 }}
               />
             </div>
 
             <hr />
-            <ArticleActions article={article} />
+            <div className="article-actions">
+              <ArticleMeta article={article} />
+            </div>
           </div>
           <ArticleComments slug={article.slug} />
         </>

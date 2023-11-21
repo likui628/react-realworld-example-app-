@@ -14,6 +14,7 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.0",
     "redux": "^4.2.1",
+    "snarkdown": "^2.0.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
