@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { apiAddArticle, apiArticle } from '../api/article';
+import { apiAddArticle, apiArticle, apiUpdateArticle } from '../api/article';
 import { NewArticle } from '../types/article';
 
 export function EditArticle() {
   const { slug } = useParams();
+  const isEdit = !!slug;
 
   const [article, setArticle] = useState<NewArticle>({
     title: '',
@@ -38,10 +39,14 @@ export function EditArticle() {
 
   const navigate = useNavigate();
   const [error, setError] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await apiAddArticle(article);
+      setLoading(true);
+      const res = await (isEdit
+        ? apiUpdateArticle(slug, article)
+        : apiAddArticle(article));
       navigate(`/article/${res.slug}`);
     } catch (e: any) {
       const errorMessage = e.response.data.errors;
@@ -49,6 +54,8 @@ export function EditArticle() {
         ([key, value]) => `${key} ${value}`
       );
       setError(errors);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,6 +77,7 @@ export function EditArticle() {
                     className="form-control form-control-lg"
                     placeholder="Article Title"
                     value={article.title}
+                    disabled={loading}
                     onInput={e => onChange({ title: e.currentTarget.value })}
                   />
                 </fieldset>
@@ -79,6 +87,7 @@ export function EditArticle() {
                     className="form-control"
                     placeholder="What's this article about?"
                     value={article.description}
+                    disabled={loading}
                     onInput={e =>
                       onChange({ description: e.currentTarget.value })
                     }
@@ -90,6 +99,7 @@ export function EditArticle() {
                     rows={8}
                     placeholder="Write your article (in markdown)"
                     value={article.body}
+                    disabled={loading}
                     onInput={e => onChange({ body: e.currentTarget.value })}
                   ></textarea>
                 </fieldset>
@@ -99,6 +109,7 @@ export function EditArticle() {
                     className="form-control"
                     placeholder="Enter tags"
                     value={tag}
+                    disabled={loading}
                     onInput={e => setTag(e.currentTarget.value)}
                     onKeyDown={onKeyDown}
                   />

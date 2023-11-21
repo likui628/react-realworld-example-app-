@@ -1,4 +1,4 @@
-import { DELETE, GET, PageQueryParams, POST } from './config';
+import { DELETE, GET, PageQueryParams, POST, PUT } from './config';
 import { generateURLSearchParams } from '../utils';
 import { Article, NewArticle } from '../types/article';
 
@@ -33,6 +33,13 @@ export const apiArticle = async (slug: string): Promise<Article> => {
 
 export const apiAddArticle = async (body: NewArticle): Promise<Article> => {
   return POST('articles', { article: body }).then(res => res.article);
+};
+
+export const apiUpdateArticle = async (
+  slug: string,
+  body: Partial<NewArticle>
+): Promise<Article> => {
+  return PUT(`articles/${slug}`, { article: body }).then(res => res.article);
 };
 
 export const apiDeleteArticle = async (slug: string): Promise<void> => {
