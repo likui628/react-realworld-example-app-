@@ -12,3 +12,10 @@ export interface Article {
   favorited: boolean;
   favoritesCount: number;
 }
+
+export interface NewArticle {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+}

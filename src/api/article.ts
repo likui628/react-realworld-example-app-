@@ -1,6 +1,6 @@
 import { DELETE, GET, PageQueryParams, POST } from './config';
 import { generateURLSearchParams } from '../utils';
-import { Article } from '../types/article';
+import { Article, NewArticle } from '../types/article';
 
 export const ARTICLE_PAGE_LIMIT = 10;
 
@@ -29,6 +29,10 @@ export const apiFeedArticles = async (
 
 export const apiArticle = async (slug: string): Promise<Article> => {
   return GET(`articles/${slug}`).then(res => res.article);
+};
+
+export const apiAddArticle = async (body: NewArticle): Promise<Article> => {
+  return POST('articles', { article: body }).then(res => res.article);
 };
 
 export const apiDeleteArticle = async (slug: string): Promise<void> => {
