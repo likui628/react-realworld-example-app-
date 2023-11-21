@@ -1,8 +1,16 @@
-import { DELETE, GET, POST } from './config';
+import { DELETE, GET, POST, PUT } from './config';
 import { Profile, RegisterUser, User } from '../types/user';
 
 export interface LoginRegisterParam {
   user: RegisterUser;
+}
+
+export interface UpdateUser {
+  email?: string;
+  username?: string;
+  bio?: string;
+  image?: string;
+  password?: string;
 }
 
 export const apiRegisterUser = async (
@@ -29,4 +37,8 @@ export const apiUnfollowUser = async (username: string): Promise<Profile> => {
   return DELETE(`profiles/${encodeURIComponent(username)}/follow`).then(
     data => data.profile
   );
+};
+
+export const apiUpdateUser = async (user: UpdateUser): Promise<User> => {
+  return PUT('user', { user }).then(data => data.user);
 };

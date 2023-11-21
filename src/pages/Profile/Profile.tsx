@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { apiProfiles } from '../../api/user';
 import { Profile as UserProfile } from '../../types/user';
@@ -25,10 +25,13 @@ export function Profile() {
               <h4>{profle?.username}</h4>
               <p>{profle?.bio}</p>
               {username === profle?.username ? (
-                <button className="btn btn-sm btn-outline-secondary action-btn">
+                <Link
+                  to={'/settings'}
+                  className="btn btn-sm btn-outline-secondary action-btn"
+                >
                   <i className="ion-gear-a"></i>
                   Edit Profile Settings
-                </button>
+                </Link>
               ) : (
                 <button className="btn btn-sm btn-outline-secondary action-btn">
                   <i className="ion-plus-round"></i>
