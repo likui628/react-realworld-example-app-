@@ -5,7 +5,7 @@ import { Home } from '../pages/Home';
 import { Auth } from '../pages/Auth';
 import { Settings } from '../pages/Settings';
 import { EditArticle } from '../pages/EditArticle';
-import { Article } from '../pages/Article';
+import { Article } from '../pages/Article/Article';
 import { Profile } from '../pages/Profile/Profile';
 import { Feed } from '../pages/Profile/Feed';
 

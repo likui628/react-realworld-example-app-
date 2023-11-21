@@ -26,3 +26,7 @@ export const apiFeedArticles = async (
 ): Promise<ArticleResponse> => {
   return GET(`articles/feed?${generateURLSearchParams(body)}`);
 };
+
+export const apiArticle = async (slug: string): Promise<Article> => {
+  return GET(`articles/${slug}`).then(res => res.article);
+};

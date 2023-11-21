@@ -13,3 +13,7 @@ export const formatTime = (time: string) => {
     day: 'numeric',
   });
 };
+
+export const transformNewlines = (text: string) => {
+  return text.replaceAll(/(?:\\r\\n|\\r|\\n)/g, '<br />');
+};
