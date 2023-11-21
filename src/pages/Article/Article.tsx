@@ -31,7 +31,13 @@ export function Article() {
                 }}
               />
             </div>
-
+            <ul className="tag-list">
+              {article.tagList.map(tag => (
+                <li key={tag} className="tag-default tag-pill tag-outline">
+                  {tag}
+                </li>
+              ))}
+            </ul>
             <hr />
             <div className="article-actions">
               <ArticleMeta article={article} onChange={setArticle} />
