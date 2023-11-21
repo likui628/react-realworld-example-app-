@@ -88,7 +88,7 @@ export function ArticleMeta({ article, onChange }: ArticleMetaProps) {
             }`}
           >
             <i className="ion-heart"></i>
-            &nbsp; Favorite Post &nbsp;
+            &nbsp; {article.favorited ? 'Unfavorite' : 'Favorite'} Post &nbsp;
             <span className="counter">({article.favoritesCount})</span>
           </button>
         </>

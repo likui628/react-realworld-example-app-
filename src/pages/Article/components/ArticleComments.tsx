@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { apiAddArticleComment, apiArticleComments } from '../../../api/comment';
+import {
+  apiAddArticleComment,
+  apiArticleComments,
+  apiDeleteArticleComment,
+} from '../../../api/comment';
 import { Comment } from '../../../types/comment';
 import { Link } from 'react-router-dom';
 import { formatTime } from '../../../utils';
@@ -27,6 +31,12 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
     });
     setComment('');
   };
+
+  const onDeleteComment = async (id: number) => {
+    await apiDeleteArticleComment(slug, id);
+    setComments(comments.filter(comment => comment.id !== id));
+  };
+
   return (
     <div className="row">
       <div className="col-xs-12 col-md-8 offset-md-2">
@@ -77,6 +87,14 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
                     <span className="date-posted">
                       {formatTime(comment.updatedAt)}
                     </span>
+                    {comment.author.username === user.username && (
+                      <span
+                        className="mod-options"
+                        onClick={() => onDeleteComment(comment.id)}
+                      >
+                        <i className="ion-trash-a"></i>
+                      </span>
+                    )}
                   </div>
                 </div>
               </>

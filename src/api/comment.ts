@@ -1,4 +1,4 @@
-import { GET, POST } from './config';
+import { DELETE, GET, POST } from './config';
 import { Comment } from '../types/comment';
 
 export const apiArticleComments = async (slug: string): Promise<Comment[]> => {
@@ -12,4 +12,11 @@ export const apiAddArticleComment = async (
   return POST(`articles/${slug}/comments`, { comment: { body } }).then(
     res => res.comment
   );
+};
+
+export const apiDeleteArticleComment = async (
+  slug: string,
+  id: number
+): Promise<void> => {
+  return DELETE(`articles/${slug}/comments/${id}`);
 };
