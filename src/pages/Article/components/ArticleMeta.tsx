@@ -2,9 +2,18 @@ import { ArticleProps } from '../types';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatTime } from '../../../utils';
 import { useAppSelector } from '../../../state/storeHooks';
-import { apiDeleteArticle } from '../../../api/article';
+import {
+  apiDeleteArticle,
+  apiFavoriteArticle,
+  apiUnfavoriteArticle,
+} from '../../../api/article';
+import { apiFollowUser, apiUnfollowUser } from '../../../api/user';
+import { Article } from '../../../types/article';
 
-export function ArticleMeta({ article }: ArticleProps) {
+export interface ArticleMetaProps extends ArticleProps {
+  onChange: (article: Article) => void;
+}
+export function ArticleMeta({ article, onChange }: ArticleMetaProps) {
   const user = useAppSelector(state => state.auth.user);
   const isAuthor = user?.username === article.author.username;
 
@@ -13,6 +22,23 @@ export function ArticleMeta({ article }: ArticleProps) {
     await apiDeleteArticle(article.slug);
     navigate('/');
   };
+
+  const onFollowUser = async () => {
+    const { username, following } = article.author;
+    const queryApi = following ? apiUnfollowUser : apiFollowUser;
+    const updatedProfile = await queryApi(username);
+
+    onChange({ ...article, author: { ...updatedProfile } });
+  };
+
+  const onFavoriteArticle = async () => {
+    const { slug, favorited } = article;
+    const queryApi = favorited ? apiUnfavoriteArticle : apiFavoriteArticle;
+    const updatedArticle = await queryApi(slug);
+
+    onChange(updatedArticle);
+  };
+
   return (
     <div className="article-meta">
       {isAuthor ? (
@@ -42,13 +68,25 @@ export function ArticleMeta({ article }: ArticleProps) {
             </Link>
             <span className="date">{formatTime(article.updatedAt)}</span>
           </div>
-          <button className="btn btn-sm btn-outline-secondary">
+          <button
+            onClick={onFollowUser}
+            className={`btn btn-sm ${
+              article.author.following
+                ? 'btn-secondary'
+                : 'btn-outline-secondary'
+            }`}
+          >
             <i className="ion-plus-round"></i>
             &nbsp; {article.author.following ? 'Unfollow' : 'Follow'}&nbsp;
             {article.author.username}
           </button>
           &nbsp;
-          <button className="btn btn-sm btn-outline-primary">
+          <button
+            onClick={onFavoriteArticle}
+            className={`btn btn-sm ${
+              article.favorited ? 'btn-primary' : 'btn-outline-primary'
+            }`}
+          >
             <i className="ion-heart"></i>
             &nbsp; Favorite Post &nbsp;
             <span className="counter">({article.favoritesCount})</span>

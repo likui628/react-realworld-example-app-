@@ -20,7 +20,7 @@ export function Article() {
     <div className="article-page">
       {article && (
         <>
-          <ArticleBanner article={article} />
+          <ArticleBanner article={article} onChange={setArticle} />
 
           <div className="container page">
             <div className="row article-content">
@@ -34,7 +34,7 @@ export function Article() {
 
             <hr />
             <div className="article-actions">
-              <ArticleMeta article={article} />
+              <ArticleMeta article={article} onChange={setArticle} />
             </div>
           </div>
           <ArticleComments slug={article.slug} />

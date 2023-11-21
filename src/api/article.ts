@@ -1,4 +1,4 @@
-import { DELETE, GET, PageQueryParams } from './config';
+import { DELETE, GET, PageQueryParams, POST } from './config';
 import { generateURLSearchParams } from '../utils';
 import { Article } from '../types/article';
 
@@ -33,4 +33,12 @@ export const apiArticle = async (slug: string): Promise<Article> => {
 
 export const apiDeleteArticle = async (slug: string): Promise<void> => {
   return DELETE(`articles/${slug}`);
+};
+
+export const apiFavoriteArticle = async (slug: string): Promise<Article> => {
+  return POST(`articles/${slug}/favorite`).then(res => res.article);
+};
+
+export const apiUnfavoriteArticle = async (slug: string): Promise<Article> => {
+  return DELETE(`articles/${slug}/favorite`).then(res => res.article);
 };
