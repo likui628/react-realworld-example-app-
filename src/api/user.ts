@@ -1,9 +1,5 @@
 import { DELETE, GET, POST, PUT } from './config';
-import { Profile, RegisterUser, User } from '../types/user';
-
-export interface LoginRegisterParam {
-  user: RegisterUser;
-}
+import { LoginUser, Profile, RegisterUser, User } from '../types/user';
 
 export interface UpdateUser {
   email?: string;
@@ -13,14 +9,12 @@ export interface UpdateUser {
   password?: string;
 }
 
-export const apiRegisterUser = async (
-  body: LoginRegisterParam
-): Promise<User> => {
-  return POST('users', body).then(data => data.user);
+export const apiRegisterUser = async (user: RegisterUser): Promise<User> => {
+  return POST('users', { user }).then(data => data.user);
 };
 
-export const apiLoginUser = async (body: LoginRegisterParam): Promise<User> => {
-  return POST('users/login', body).then(data => data.user);
+export const apiLoginUser = async (user: LoginUser): Promise<User> => {
+  return POST('users/login', { user }).then(data => data.user);
 };
 
 export const apiProfiles = async (username: string): Promise<Profile> => {

@@ -19,7 +19,11 @@ export function ArticlePreview({ article }: ArticlePreviewProps) {
           </Link>
           <span className="date">{formatTime(article.updatedAt)}</span>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
+        <button
+          className={`btn ${
+            article.favorited ? 'btn-primary' : 'btn-outline-primary'
+          } btn-sm pull-xs-right`}
+        >
           <i className="ion-heart"></i> {article.favoritesCount}
         </button>
       </div>

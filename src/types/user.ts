@@ -1,8 +1,12 @@
-export interface RegisterUser {
-  username: string;
+export interface LoginUser {
   password: string;
   email: string;
 }
+
+export interface RegisterUser extends LoginUser {
+  username: string;
+}
+
 export interface User {
   email: string;
   username: string;

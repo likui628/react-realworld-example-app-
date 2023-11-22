@@ -27,8 +27,8 @@ export function Auth({ isRegister }: { isRegister?: boolean }) {
 
     await request(async () => {
       const user = isRegister
-        ? await apiRegisterUser({ user: account })
-        : await apiLoginUser({ user: account });
+        ? await apiRegisterUser(account)
+        : await apiLoginUser(account);
       dispatch(login(user));
       navigate('/');
     });

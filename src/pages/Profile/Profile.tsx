@@ -7,7 +7,7 @@ export function Profile() {
   let { username } = useParams();
   username = username?.replace(/^@/, '') || '';
 
-  const [profle, setProfile] = useState<UserProfile>();
+  const [profile, setProfile] = useState<UserProfile>();
 
   useEffect(() => {
     if (username) {
@@ -21,10 +21,10 @@ export function Profile() {
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
-              <img alt="" src={profle?.image} className="user-img" />
-              <h4>{profle?.username}</h4>
-              <p>{profle?.bio}</p>
-              {username === profle?.username ? (
+              <img alt="" src={profile?.image} className="user-img" />
+              <h4>{profile?.username}</h4>
+              <p>{profile?.bio}</p>
+              {username === profile?.username ? (
                 <Link
                   to={'/settings'}
                   className="btn btn-sm btn-outline-secondary action-btn"
@@ -35,8 +35,8 @@ export function Profile() {
               ) : (
                 <button className="btn btn-sm btn-outline-secondary action-btn">
                   <i className="ion-plus-round"></i>
-                  &nbsp; {profle?.following ? 'Unfollow' : 'Follow'}&nbsp;
-                  {profle?.username}
+                  &nbsp; {profile?.following ? 'Unfollow' : 'Follow'}&nbsp;
+                  {profile?.username}
                 </button>
               )}
             </div>
@@ -51,7 +51,7 @@ export function Profile() {
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
                   <NavLink
-                    to={`/profile/@${profle?.username}`}
+                    to={`/profile/@${profile?.username}`}
                     className="nav-link"
                     end
                   >
@@ -60,7 +60,7 @@ export function Profile() {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    to={`/profile/@${profle?.username}/favorites`}
+                    to={`/profile/@${profile?.username}/favorites`}
                     className="nav-link"
                   >
                     Favorited Articles
