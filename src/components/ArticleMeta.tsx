@@ -9,6 +9,7 @@ import {
 } from '../api/article';
 import { apiFollowUser, apiUnfollowUser } from '../api/user';
 import { Article } from '../types/article';
+import { AuthenticatedWrapper } from './AuthenticatedWrapper';
 
 export interface ArticleMetaProps extends ArticleProps {
   onChange: (article: Article) => void;
@@ -68,29 +69,33 @@ export function ArticleMeta({ article, onChange }: ArticleMetaProps) {
             </Link>
             <span className="date">{formatTime(article.updatedAt)}</span>
           </div>
-          <button
-            onClick={onFollowUser}
-            className={`btn btn-sm ${
-              article.author.following
-                ? 'btn-secondary'
-                : 'btn-outline-secondary'
-            }`}
-          >
-            <i className="ion-plus-round"></i>
-            &nbsp; {article.author.following ? 'Unfollow' : 'Follow'}&nbsp;
-            {article.author.username}
-          </button>
+          <AuthenticatedWrapper>
+            <button
+              onClick={onFollowUser}
+              className={`btn btn-sm ${
+                article.author.following
+                  ? 'btn-secondary'
+                  : 'btn-outline-secondary'
+              }`}
+            >
+              <i className="ion-plus-round"></i>
+              &nbsp; {article.author.following ? 'Unfollow' : 'Follow'}&nbsp;
+              {article.author.username}
+            </button>
+          </AuthenticatedWrapper>
           &nbsp;
-          <button
-            onClick={onFavoriteArticle}
-            className={`btn btn-sm ${
-              article.favorited ? 'btn-primary' : 'btn-outline-primary'
-            }`}
-          >
-            <i className="ion-heart"></i>
-            &nbsp; {article.favorited ? 'Unfavorite' : 'Favorite'} Post &nbsp;
-            <span className="counter">({article.favoritesCount})</span>
-          </button>
+          <AuthenticatedWrapper>
+            <button
+              onClick={onFavoriteArticle}
+              className={`btn btn-sm ${
+                article.favorited ? 'btn-primary' : 'btn-outline-primary'
+              }`}
+            >
+              <i className="ion-heart"></i>
+              &nbsp; {article.favorited ? 'Unfavorite' : 'Favorite'} Post &nbsp;
+              <span className="counter">({article.favoritesCount})</span>
+            </button>
+          </AuthenticatedWrapper>
         </>
       )}
     </div>

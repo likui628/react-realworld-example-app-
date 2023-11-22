@@ -1,6 +1,7 @@
 import { Article } from '../types/article';
 import { formatTime } from '../utils';
 import { Link } from 'react-router-dom';
+import { AuthenticatedWrapper } from './AuthenticatedWrapper';
 
 interface ArticlePreviewProps {
   article: Article;
@@ -19,13 +20,15 @@ export function ArticlePreview({ article }: ArticlePreviewProps) {
           </Link>
           <span className="date">{formatTime(article.updatedAt)}</span>
         </div>
-        <button
-          className={`btn ${
-            article.favorited ? 'btn-primary' : 'btn-outline-primary'
-          } btn-sm pull-xs-right`}
-        >
-          <i className="ion-heart"></i> {article.favoritesCount}
-        </button>
+        <AuthenticatedWrapper>
+          <button
+            className={`btn ${
+              article.favorited ? 'btn-primary' : 'btn-outline-primary'
+            } btn-sm pull-xs-right`}
+          >
+            <i className="ion-heart"></i> {article.favoritesCount}
+          </button>
+        </AuthenticatedWrapper>
       </div>
       <Link to={`/article/${article.slug}`} className="preview-link">
         <h1>{article.title}</h1>
