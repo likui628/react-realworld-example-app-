@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { apiLoginUser, apiRegisterUser } from '../api/user';
 import { login } from '../state/authSlice';
 import { useAppDispatch } from '../hooks/store';
+import { useRequest } from '../hooks/query';
 
 export function Auth({ isRegister }: { isRegister?: boolean }) {
   const [account, setAccount] = useState({
@@ -12,10 +13,6 @@ export function Auth({ isRegister }: { isRegister?: boolean }) {
   });
   const { username, password, email } = account;
 
-  const [error, setError] = useState<string[]>([]);
-
-  const [loading, setLoading] = useState(false);
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setAccount(prev => ({ ...prev, [name]: value }));
@@ -24,24 +21,17 @@ export function Auth({ isRegister }: { isRegister?: boolean }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { loading, errors, request } = useRequest();
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      setLoading(true);
+
+    await request(async () => {
       const user = isRegister
         ? await apiRegisterUser({ user: account })
         : await apiLoginUser({ user: account });
       dispatch(login(user));
       navigate('/');
-    } catch (e: any) {
-      const errorMessage = e.response.data.errors;
-      const errors = Object.entries(errorMessage).map(
-        ([key, value]) => `${key} ${value}`
-      );
-      setError(errors);
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
   return (
@@ -61,8 +51,8 @@ export function Auth({ isRegister }: { isRegister?: boolean }) {
             </p>
 
             <ul className="error-messages">
-              {error.map((err, index) => (
-                <li key={index}>{error}</li>
+              {errors.map((err, index) => (
+                <li key={index}>{err}</li>
               ))}
             </ul>
 

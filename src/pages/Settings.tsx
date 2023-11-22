@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { apiUpdateUser, UpdateUser } from '../api/user';
 import { login, logout } from '../state/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useRequest } from '../hooks/query';
 
 export function Settings() {
   const user = useAppSelector(state => state.auth.user!);
@@ -13,21 +14,19 @@ export function Settings() {
     setUserInfo(prev => ({ ...prev, [name]: value }));
   };
 
-  const navigete = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { loading, errors, request } = useRequest();
+
   const onSubmit = async () => {
-    setLoading(true);
-    try {
+    await request(async () => {
       const user = await apiUpdateUser(userInfo);
       dispatch(login(user));
-      navigete(`/profile/${user.username}`);
-    } finally {
-      setLoading(false);
-    }
+      navigate(`/profile/${user.username}`);
+    });
   };
   const onLogout = () => {
     dispatch(logout());
-    navigete('/');
+    navigate('/');
   };
   return (
     <div className="settings-page">
@@ -45,6 +44,7 @@ export function Settings() {
                     placeholder="URL of profile picture"
                     value={userInfo.image}
                     onChange={e => onChange('image', e.target.value)}
+                    disabled={loading}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -54,6 +54,7 @@ export function Settings() {
                     placeholder="Your Name"
                     value={userInfo.username}
                     onChange={e => onChange('username', e.target.value)}
+                    disabled={loading}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -63,6 +64,7 @@ export function Settings() {
                     placeholder="Short bio about you"
                     value={userInfo.bio}
                     onChange={e => onChange('bio', e.target.value)}
+                    disabled={loading}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -72,6 +74,7 @@ export function Settings() {
                     placeholder="Email"
                     value={userInfo.email}
                     onChange={e => onChange('email', e.target.value)}
+                    disabled={loading}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -81,6 +84,7 @@ export function Settings() {
                     placeholder="Password"
                     value={userInfo.password}
                     onChange={e => onChange('password', e.target.value)}
+                    disabled={loading}
                   />
                 </fieldset>
                 <button

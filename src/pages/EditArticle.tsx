@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { apiAddArticle, apiArticle, apiUpdateArticle } from '../api/article';
 import { NewArticle } from '../types/article';
+import { useRequest } from '../hooks/query';
 
 export function EditArticle() {
   const { slug } = useParams();
@@ -38,25 +39,16 @@ export function EditArticle() {
   };
 
   const navigate = useNavigate();
-  const [error, setError] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { loading, errors, request } = useRequest();
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      setLoading(true);
+
+    await request(async () => {
       const res = await (isEdit
         ? apiUpdateArticle(slug, article)
         : apiAddArticle(article));
       navigate(`/article/${res.slug}`);
-    } catch (e: any) {
-      const errorMessage = e.response.data.errors;
-      const errors = Object.entries(errorMessage).map(
-        ([key, value]) => `${key} ${value}`
-      );
-      setError(errors);
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
   return (
@@ -65,8 +57,8 @@ export function EditArticle() {
         <div className="row">
           <div className="col-md-10 offset-md-1 col-xs-12">
             <ul className="error-messages">
-              {error.map((err, index) => (
-                <li key={index}>{error}</li>
+              {errors.map((err, index) => (
+                <li key={index}>{err}</li>
               ))}
             </ul>
             <form onSubmit={onSubmit}>
