@@ -7,7 +7,7 @@ import {
 import { Comment } from '../../../types/comment';
 import { Link } from 'react-router-dom';
 import { formatTime } from '../../../utils';
-import { useAppSelector } from '../../../state/storeHooks';
+import { useAppSelector } from '../../../hooks/store';
 
 interface ArticleCommentsProps {
   slug: string;

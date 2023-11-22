@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { apiLoginUser, apiRegisterUser } from '../api/user';
 import { login } from '../state/authSlice';
-import { useAppDispatch } from '../state/storeHooks';
+import { useAppDispatch } from '../hooks/store';
 
 export function Auth({ isRegister }: { isRegister?: boolean }) {
   const [account, setAccount] = useState({

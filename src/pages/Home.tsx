@@ -1,6 +1,6 @@
 import { PopularTags } from '../components/PopularTags';
 import { ArticlePreview } from '../components/ArticlePreview';
-import { useAppSelector } from '../state/storeHooks';
+import { useAppSelector } from '../hooks/store';
 import { useEffect, useState } from 'react';
 import { Pagination } from '../components/Pagination';
 import { Article } from '../types/article';

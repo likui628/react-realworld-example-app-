@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../state/storeHooks';
+import { useAppDispatch, useAppSelector } from '../hooks/store';
 import { useState } from 'react';
 import { apiUpdateUser, UpdateUser } from '../api/user';
 import { login, logout } from '../state/authSlice';

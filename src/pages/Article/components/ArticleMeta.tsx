@@ -1,7 +1,7 @@
 import { ArticleProps } from '../types';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatTime } from '../../../utils';
-import { useAppSelector } from '../../../state/storeHooks';
+import { useAppSelector } from '../../../hooks/store';
 import {
   apiDeleteArticle,
   apiFavoriteArticle,

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../state/storeHooks';
+import { useAppSelector } from '../hooks/store';
 export function Header() {
   const user = useAppSelector(state => state.auth.user);
   return (
