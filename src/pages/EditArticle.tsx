@@ -4,7 +4,7 @@ import { apiAddArticle, apiArticle, apiUpdateArticle } from '../api/article';
 import { NewArticle } from '../types/article';
 import { useRequest } from '../hooks/query';
 
-export function EditArticle() {
+export default function EditArticle() {
   const { slug } = useParams();
   const isEdit = !!slug;
 

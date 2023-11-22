@@ -5,7 +5,7 @@ import { login } from '../state/authSlice';
 import { useAppDispatch } from '../hooks/store';
 import { useRequest } from '../hooks/query';
 
-export function Auth({ isRegister }: { isRegister?: boolean }) {
+export default function Auth({ isRegister }: { isRegister?: boolean }) {
   const [account, setAccount] = useState({
     username: '',
     password: '',

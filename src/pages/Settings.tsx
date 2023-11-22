@@ -5,7 +5,7 @@ import { login, logout } from '../state/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useRequest } from '../hooks/query';
 
-export function Settings() {
+export default function Settings() {
   const user = useAppSelector(state => state.auth.user!);
   const dispatch = useAppDispatch();
 

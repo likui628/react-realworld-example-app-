@@ -1,13 +1,15 @@
 import { createHashRouter } from 'react-router-dom';
+import { lazy } from 'react';
 
 import { Layout } from './Layout';
-import { Home } from '../pages/Home';
-import { Auth } from '../pages/Auth';
-import { Settings } from '../pages/Settings';
-import { EditArticle } from '../pages/EditArticle';
-import { Article } from '../pages/Article/Article';
-import { Profile } from '../pages/Profile/Profile';
-import { Feed } from '../pages/Profile/Feed';
+import HomePage from '../pages/Home';
+
+const SettingsPage = lazy(() => import('../pages/Settings'));
+const EditorPage = lazy(() => import('../pages/EditArticle'));
+const ArticlePage = lazy(() => import('../pages/Article/Article'));
+const ProfilePage = lazy(() => import('../pages/Profile/Profile'));
+const FeedPage = lazy(() => import('../pages/Profile/Feed'));
+const AuthPage = lazy(() => import('../pages/Auth'));
 
 export const router = createHashRouter([
   {
@@ -16,50 +18,50 @@ export const router = createHashRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: <HomePage />,
         index: true,
       },
       {
         path: '/login',
-        element: <Auth />,
+        element: <AuthPage />,
       },
       {
         path: '/register',
-        element: <Auth isRegister />,
+        element: <AuthPage isRegister />,
       },
       {
         path: '/settings',
-        element: <Settings />,
+        element: <SettingsPage />,
       },
       {
         path: '/editor',
-        element: <EditArticle />,
+        element: <EditorPage />,
       },
       {
         path: '/editor/:slug',
-        element: <EditArticle />,
+        element: <EditorPage />,
       },
       {
         path: '/profile',
-        element: <Profile />,
+        element: <ProfilePage />,
         children: [
           {
             path: ':username',
-            element: <Feed />,
+            element: <FeedPage />,
           },
           {
             path: ':username/favorites',
-            element: <Feed />,
+            element: <FeedPage />,
           },
         ],
       },
       {
         path: '/article/:slug',
-        element: <Article />,
+        element: <ArticlePage />,
       },
       {
         path: '*',
-        element: <Home />,
+        element: <HomePage />,
       },
     ],
   },

@@ -10,7 +10,7 @@ import {
   ARTICLE_PAGE_LIMIT,
 } from '../api/article';
 
-export function Home() {
+export default function Home() {
   const isAuthenticated = useAppSelector(state => !!state.auth.user);
   const [activeTab, setActiveTab] = useState<'feed' | 'global' | 'tag'>('feed');
 

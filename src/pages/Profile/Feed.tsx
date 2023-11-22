@@ -4,7 +4,7 @@ import { Article } from '../../types/article';
 import { apiArticles, ArticleQueryParams } from '../../api/article';
 import { ArticlePreview } from '../../components/ArticlePreview';
 
-export function Feed() {
+export default function Feed() {
   const { username } = useParams();
   const { pathname } = useLocation();
 

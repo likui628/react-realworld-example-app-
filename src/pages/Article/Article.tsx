@@ -7,7 +7,7 @@ import { ArticleBanner } from './components/ArticleBanner';
 import { markdown } from '../../utils';
 import { ArticleMeta } from './components/ArticleMeta';
 
-export function Article() {
+export default function Article() {
   const { slug } = useParams();
 
   const [article, setArticle] = useState<ArticleType>();

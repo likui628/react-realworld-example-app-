@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { apiProfiles } from '../../api/user';
 import { Profile as UserProfile } from '../../types/user';
 
-export function Profile() {
+export default function Profile() {
   let { username } = useParams();
   username = username?.replace(/^@/, '') || '';
 
