@@ -57,6 +57,10 @@ export const router = createHashRouter([
         path: '/article/:slug',
         element: <Article />,
       },
+      {
+        path: '*',
+        element: <Home />,
+      },
     ],
   },
 ]);
