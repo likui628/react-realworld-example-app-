@@ -3,11 +3,11 @@ import {
   apiAddArticleComment,
   apiArticleComments,
   apiDeleteArticleComment,
-} from '../../../api/comment';
-import { Comment } from '../../../types/comment';
+} from '../api/comment';
+import { Comment } from '../types/comment';
 import { Link } from 'react-router-dom';
-import { formatTime } from '../../../utils';
-import { useAppSelector } from '../../../hooks/store';
+import { formatTime } from '../utils';
+import { useAppSelector } from '../hooks/store';
 
 interface ArticleCommentsProps {
   slug: string;

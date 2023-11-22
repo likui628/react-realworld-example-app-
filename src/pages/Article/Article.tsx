@@ -2,10 +2,10 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { apiArticle } from '../../api/article';
 import { Article as ArticleType } from '../../types/article';
-import { ArticleComments } from './components/ArticleComments';
-import { ArticleBanner } from './components/ArticleBanner';
+import { ArticleComments } from '../../components/ArticleComments';
+import { ArticleBanner } from '../../components/ArticleBanner';
 import { markdown } from '../../utils';
-import { ArticleMeta } from './components/ArticleMeta';
+import { ArticleMeta } from '../../components/ArticleMeta';
 
 export default function Article() {
   const { slug } = useParams();

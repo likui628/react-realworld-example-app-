@@ -1,14 +1,14 @@
-import { ArticleProps } from '../types';
+import { ArticleProps } from '../pages/Article/types';
 import { Link, useNavigate } from 'react-router-dom';
-import { formatTime } from '../../../utils';
-import { useAppSelector } from '../../../hooks/store';
+import { formatTime } from '../utils';
+import { useAppSelector } from '../hooks/store';
 import {
   apiDeleteArticle,
   apiFavoriteArticle,
   apiUnfavoriteArticle,
-} from '../../../api/article';
-import { apiFollowUser, apiUnfollowUser } from '../../../api/user';
-import { Article } from '../../../types/article';
+} from '../api/article';
+import { apiFollowUser, apiUnfollowUser } from '../api/user';
+import { Article } from '../types/article';
 
 export interface ArticleMetaProps extends ArticleProps {
   onChange: (article: Article) => void;
