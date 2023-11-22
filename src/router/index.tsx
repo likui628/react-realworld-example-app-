@@ -1,8 +1,9 @@
-import { createHashRouter } from 'react-router-dom';
-import { lazy } from 'react';
+import { createHashRouter, useNavigate } from 'react-router-dom';
+import { lazy, ReactNode, useEffect } from 'react';
 
 import { Layout } from './Layout';
 import HomePage from '../pages/Home';
+import { useAppSelector } from '../hooks/store';
 
 const SettingsPage = lazy(() => import('../pages/Settings'));
 const EditorPage = lazy(() => import('../pages/EditArticle'));
@@ -31,15 +32,27 @@ export const router = createHashRouter([
       },
       {
         path: '/settings',
-        element: <SettingsPage />,
+        element: (
+          <Authenticated>
+            <SettingsPage />
+          </Authenticated>
+        ),
       },
       {
         path: '/editor',
-        element: <EditorPage />,
+        element: (
+          <Authenticated>
+            <EditorPage />
+          </Authenticated>
+        ),
       },
       {
         path: '/editor/:slug',
-        element: <EditorPage />,
+        element: (
+          <Authenticated>
+            <EditorPage />
+          </Authenticated>
+        ),
       },
       {
         path: '/profile',
@@ -66,3 +79,16 @@ export const router = createHashRouter([
     ],
   },
 ]);
+
+function Authenticated({ children }: { children: ReactNode }) {
+  const isAuthenticated = useAppSelector(state => !!state.auth.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated]);
+
+  return <>{children}</>;
+}
