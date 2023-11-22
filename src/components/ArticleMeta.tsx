@@ -2,14 +2,11 @@ import { ArticleProps } from '../pages/Article/types';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatTime } from '../utils';
 import { useAppSelector } from '../hooks/store';
-import {
-  apiDeleteArticle,
-  apiFavoriteArticle,
-  apiUnfavoriteArticle,
-} from '../api/article';
+import { apiDeleteArticle } from '../api/article';
 import { apiFollowUser, apiUnfollowUser } from '../api/user';
 import { Article } from '../types/article';
 import { AuthenticatedWrapper } from './AuthenticatedWrapper';
+import { ArticleFavoriteButton } from './ArticleFavoriteButton';
 
 export interface ArticleMetaProps extends ArticleProps {
   onChange: (article: Article) => void;
@@ -30,14 +27,6 @@ export function ArticleMeta({ article, onChange }: ArticleMetaProps) {
     const updatedProfile = await queryApi(username);
 
     onChange({ ...article, author: { ...updatedProfile } });
-  };
-
-  const onFavoriteArticle = async () => {
-    const { slug, favorited } = article;
-    const queryApi = favorited ? apiUnfavoriteArticle : apiFavoriteArticle;
-    const updatedArticle = await queryApi(slug);
-
-    onChange(updatedArticle);
   };
 
   return (
@@ -84,18 +73,11 @@ export function ArticleMeta({ article, onChange }: ArticleMetaProps) {
             </button>
           </AuthenticatedWrapper>
           &nbsp;
-          <AuthenticatedWrapper>
-            <button
-              onClick={onFavoriteArticle}
-              className={`btn btn-sm ${
-                article.favorited ? 'btn-primary' : 'btn-outline-primary'
-              }`}
-            >
-              <i className="ion-heart"></i>
-              &nbsp; {article.favorited ? 'Unfavorite' : 'Favorite'} Post &nbsp;
-              <span className="counter">({article.favoritesCount})</span>
-            </button>
-          </AuthenticatedWrapper>
+          <ArticleFavoriteButton
+            onChange={onChange}
+            article={article}
+            showLabel={true}
+          />
         </>
       )}
     </div>

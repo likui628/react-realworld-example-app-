@@ -1,8 +1,9 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Article } from '../../types/article';
-import { apiArticles, ArticleQueryParams } from '../../api/article';
+import { apiArticles } from '../../api/article';
 import { ArticlePreview } from '../../components/ArticlePreview';
+import { useRequest } from '../../hooks/query';
 
 export default function Feed() {
   const { username } = useParams();
@@ -11,26 +12,33 @@ export default function Feed() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [articlesCount, setArticlesCount] = useState(0);
 
-  const [loading, setLoading] = useState(false);
+  const { loading, request } = useRequest();
 
   useEffect(() => {
     if (!username) return;
     const key = pathname.endsWith('favorites') ? 'favorited' : 'author';
     const value = username.replace(/^@/, '');
-    setLoading(true);
-    apiArticles({
-      [key]: value,
-      limit: 5,
-      offset: 0,
-    })
-      .then(({ articles, articlesCount }) => {
+
+    request(async () => {
+      await apiArticles({
+        [key]: value,
+        limit: 5,
+        offset: 0,
+      }).then(({ articles, articlesCount }) => {
         setArticles(articles);
         setArticlesCount(articlesCount);
-      })
-      .finally(() => {
-        setLoading(false);
       });
+    });
   }, [username, pathname]);
+
+  const onArticleChange = (updateArticle: Article) => {
+    setArticles(prevState =>
+      prevState.map(article =>
+        article.slug === updateArticle.slug ? updateArticle : article
+      )
+    );
+  };
+
   return (
     <>
       {loading ? (
@@ -39,7 +47,11 @@ export default function Feed() {
         <div className="article-preview">No articles are here... yet.</div>
       ) : (
         articles.map(article => (
-          <ArticlePreview key={article.slug} article={article} />
+          <ArticlePreview
+            key={article.slug}
+            article={article}
+            onChange={onArticleChange}
+          />
         ))
       )}
     </>

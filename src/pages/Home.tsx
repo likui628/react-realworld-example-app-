@@ -57,6 +57,14 @@ export default function Home() {
     return activeTab === tabName ? 'nav-link active' : 'nav-link';
   }
 
+  const onArticleChange = (updateArticle: Article) => {
+    setArticles(prevState =>
+      prevState.map(article =>
+        article.slug === updateArticle.slug ? updateArticle : article
+      )
+    );
+  };
+
   return (
     <>
       <div className="home-page">
@@ -114,7 +122,11 @@ export default function Home() {
                 </div>
               ) : (
                 articles.map(article => (
-                  <ArticlePreview key={article.slug} article={article} />
+                  <ArticlePreview
+                    key={article.slug}
+                    article={article}
+                    onChange={onArticleChange}
+                  />
                 ))
               )}
               <Pagination count={articlesCount} page={page} setPage={setPage} />
