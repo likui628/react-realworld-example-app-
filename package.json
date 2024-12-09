@@ -16,7 +16,7 @@
     "redux": "^4.2.1",
     "snarkdown": "^2.0.0",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
